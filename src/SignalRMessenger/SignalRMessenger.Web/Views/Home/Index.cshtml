@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>SignalR Messenger</title>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="all">
+
+        </div>
+        <div>
+            <textarea class="ckeditor" id="MessageText"></textarea>
+        </div>
+        <button class="btn btn-default">Send</button>
+    </body>
+
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-1.0.0.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+    <script>
+         CKEDITOR.replace('ckeditor');
+    </script>
+</html>
