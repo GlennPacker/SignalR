@@ -7,24 +7,40 @@
 
 <html>
     <head>
-        <title>SignalR Messenger</title>
+        <title>SignalR MessengerHub</title>
         <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        
+        <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/jquery.signalR-1.0.0.min.js"></script>
+        <script type="text/javascript" src="@Url.Content("~/signalr/hubs")"></script>       @* dont' forget global.asax*@
     </head>
     <body>
-        <div id="all">
-
-        </div>
+        <div id="all"></div>    @*recieved messeges will go here*@
         <div>
-            <textarea class="ckeditor" id="MessageText"></textarea>
+            <textarea class="form-control" id="mymessege"></textarea>
         </div>
-        <button class="btn btn-default">Send</button>
-    </body>
+        <input type="button" class="btn btn-default" id="send" value="Send"/>
+    
+ <script>
+        // Create the signalr connection
+        var messengerhub = $.connection.messengerHub;
 
-    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.signalR-1.0.0.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
-    <script>
-         CKEDITOR.replace('ckeditor');
+        // start the hub
+        $.connection.hub.start(function() {});
+
+        // send messege to server
+        $('#send').click(function () {
+            // call function on server
+            messengerhub.server.pushMessegeToClients($('#mymessege').val());
+            // reset the input box
+            $('#mymessege').val('');
+        });
+
+        // recieve messeger from server
+        messengerhub.client.addMessage = function (message) {
+            $('#all').append(message + '<br/><br/>');
+        }
     </script>
+    </body>
 </html>

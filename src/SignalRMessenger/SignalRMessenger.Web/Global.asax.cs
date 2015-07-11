@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.AspNet.SignalR;
 
 namespace SignalRMessenger.Web
 {
@@ -16,6 +17,9 @@ namespace SignalRMessenger.Web
     {
         protected void Application_Start()
         {
+            // Register the default hubs route: ~/signalr/hubs
+            RouteTable.Routes.MapHubs(new HubConfiguration() { EnableCrossDomain = true });
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
